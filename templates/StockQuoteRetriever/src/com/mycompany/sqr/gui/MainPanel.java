@@ -23,14 +23,18 @@ public class MainPanel extends JPanel {
 
 	private JButton retrieveButton = new JButton("Retrieve Data");
 	private JTextField symbolInput = new JTextField(10);
+	private JTextField startInput = new JTextField(10); //Create new Terminal Object StartInput
+	private JTextField endInput = new JTextField(10); //Create new Terminal Object EndInput
 	private JTable dataTable = new JTable();
 	
 	public MainPanel() {
 		setLayout(new BorderLayout());
 		
 		JPanel northPane = new JPanel();
-		northPane.add(new JLabel("Symbol"));
-		northPane.add(symbolInput);
+		northPane.add(new JLabel("Start Date"));
+		northPane.add(startInput);
+		northPane.add(new JLabel("End Date"));
+		northPane.add(endInput);
 		northPane.add(retrieveButton);
 		this.add(northPane, BorderLayout.NORTH);
 		
@@ -53,11 +57,11 @@ public class MainPanel extends JPanel {
 		Calendar from = Calendar.getInstance();
         from.set(Calendar.DAY_OF_MONTH, 1);
         from.set(Calendar.MONTH, 0);
-        from.set(Calendar.YEAR, 1950);
+        from.set(Calendar.YEAR, Integer.parseInt(startInput.getText()));
         Calendar to = Calendar.getInstance();
         to.set(Calendar.DAY_OF_MONTH, 31);
         to.set(Calendar.MONTH, 11);
-        to.set(Calendar.YEAR, 2016);
+        to.set(Calendar.YEAR, Integer.parseInt(endInput.getText()));
 		List<Quote> quotes = YahooFinanceDataRetriever.getInstance().getData("PFE", from, to);
 		
 		// fill in data to table
